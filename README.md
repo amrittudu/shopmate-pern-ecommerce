@@ -37,7 +37,3 @@ A full-stack AI-powered e-commerce web application built using React, Node.js, P
 
 **AI Integration**
 - Google Gemini API
-
----
-
-## 📂 Project Structure
