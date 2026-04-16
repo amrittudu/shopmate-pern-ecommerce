@@ -1,0 +1,14 @@
+# dependencies
+node_modules/
+
+# env files (VERY IMPORTANT)
+.env
+.env.*
+
+# uploads 
+server/uploads/
+
+# config env file 
+server/config/config.env
+
+.vscode/
