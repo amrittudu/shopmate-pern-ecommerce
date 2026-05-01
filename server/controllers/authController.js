@@ -90,9 +90,9 @@ export const forgotPassword = catchAsyncErrors( async (req, res, next) => {
 
     const { email } = req.body;
     const {frontendUrl} = req.query;
-    let userResult = await database.query(
+    let userResult = await database.query (
         "SELECT * FROM users WHERE email = $1", [email]
-    );
+    ) ;
 
     if(userResult.rows.length === 0) {
         return next(new ErrorHandler("User not found with this email", 404));

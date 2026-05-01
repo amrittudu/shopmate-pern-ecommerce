@@ -12,7 +12,7 @@ const NotFound = () => {
             Sorry, the page you are looking for doesn't exist or has been moved.
           </p>
         </div>
-
+   
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/"
