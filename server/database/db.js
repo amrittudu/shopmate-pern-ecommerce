@@ -3,10 +3,10 @@ import { createUserTable } from '../models/userTable.js';
 const { Client } = pkg;
 
 const database = new Client ({
-    user: "postgres",
-    host: "localhost",
-    database: "mern_ecommerce",
-    password: "12345",
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
     port: 5432,
 });
 

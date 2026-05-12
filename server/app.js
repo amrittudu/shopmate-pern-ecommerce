@@ -13,14 +13,15 @@ import database from "./database/db.js";
 
 const app = express();
 
-
+console.log(process.env.FRONTEND_URL, process.env.DASHBOARD_URL);
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
+
 
 app.post(
   "/api/v1/payment/webhook",
@@ -38,12 +39,9 @@ app.post(
       return res.status(400).send(`Webhook Error: ${error.message || error}`);
     }
 
-    // Handling the Event
-
     if (event.type === "payment_intent.succeeded") {
       const paymentIntent_client_secret = event.data.object.client_secret;
       try {
-        // FINDING AND UPDATED PAYMENT
         const updatedPaymentStatus = "Paid";
         const paymentTableUpdateResult = await database.query(
           `UPDATE payments SET payment_status = $1 WHERE payment_intent_id = $2 RETURNING *`,
@@ -54,17 +52,12 @@ app.post(
           [paymentTableUpdateResult.rows[0].order_id]
         );
 
-        // Reduce Stock For Each Product
         const orderId = paymentTableUpdateResult.rows[0].order_id;
-
         const { rows: orderedItems } = await database.query(
-          `
-            SELECT product_id, quantity FROM order_items WHERE order_id = $1
-          `,
+          `SELECT product_id, quantity FROM order_items WHERE order_id = $1`,
           [orderId]
         );
 
-        // For each ordered item, reduce the product stock
         for (const item of orderedItems) {
           await database.query(
             `UPDATE products SET stock = stock - $1 WHERE id = $2`,
@@ -72,9 +65,7 @@ app.post(
           );
         }
       } catch (error) {
-        return res
-          .status(500)
-          .send(`Error updating paid_at timestamp in orders table.`);
+        return res.status(500).send(`Error updating database.`);
       }
     }
     res.status(200).send({ received: true });
@@ -92,12 +83,14 @@ app.use(
   })
 );
 
+
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/order", orderRouter);
 
 createTables();
+
 
 app.use(errorMiddleware);
 

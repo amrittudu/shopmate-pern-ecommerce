@@ -72,7 +72,7 @@ export const forgotPassword = createAsyncThunk(
   "auth/forgot/password",
   async ( email, thunkAPI ) => {
     try {
-      const res = await axiosInstance.post(`/auth/password/forgot?frontendUrl=http://localhost:5173`, { email} 
+      const res = await axiosInstance.post(`/auth/password/forgot?frontendUrl=http://localhost:5173`, email 
       );
       toast.success(res.data.message) ;
       return null ;
@@ -154,6 +154,7 @@ const authSlice = createSlice({
     isRequestingForToken: false,
     isCheckingAuth: true,
   },
+  
   extraReducers: (builder) => {
     builder
     .addCase( register.pending, (state) => {

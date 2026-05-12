@@ -89,10 +89,11 @@ export const logout = catchAsyncErrors( async (req, res, next) => {
 export const forgotPassword = catchAsyncErrors( async (req, res, next) => {
 
     const { email } = req.body;
+    console.log("forgot pass backend => ",req.body);
     const {frontendUrl} = req.query;
     let userResult = await database.query (
         "SELECT * FROM users WHERE email = $1", [email]
-    ) ;
+    );
 
     if(userResult.rows.length === 0) {
         return next(new ErrorHandler("User not found with this email", 404));
@@ -137,7 +138,7 @@ export const resetPassword = catchAsyncErrors( async (req, res, next) => {
     
     const { token } = req.params ;
     const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
-
+    
     const user = await database.query (
         "SELECT * FROM users WHERE reset_password_token = $1 AND reset_password_expire > NOW()",
         [resetPasswordToken]  );
