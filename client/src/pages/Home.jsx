@@ -10,6 +10,8 @@ const Index = () => {
   const { topRatedProducts, newProducts } = useSelector(
     (state) => state.product
   );
+  console.log("Top Rated Products:", topRatedProducts);
+  console.log("New Products:", newProducts);
   return (
     <div className="min-h-screen">
       <HeroSlider />

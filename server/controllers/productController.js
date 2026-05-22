@@ -5,6 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 import axios from "axios";
 import {getAIRecommendation} from "../utils/getAIRecommendation.js";
 
+
 export const getCurrencyExchangeRate = catchAsyncErrors( async (req, res, next) => {
     try{
         const response = await axios.get('')
@@ -302,7 +303,6 @@ export const postProductReview = catchAsyncErrors ( async (req, res, next) => {
     
     const { productId } = req.params;   
     const { rating, comment } = req.body;
-
     if( !rating || !comment ) {
         return next ( new ErrorHandler( "Please enter all fields", 400));
     };
@@ -551,4 +551,3 @@ export const fetchAIFilteredProducts = catchAsyncErrors(
 
   }
 );
-

@@ -20,14 +20,18 @@ const cartSlice = createSlice({
     },
 
     removeFromCart(state, action ) {
-      state.cart = state.cart.filter( (item) => item.product.id !== action.payload.id );
+      console.log("state before removal:", state);
+      state.cart = state.cart.filter( (item) => item.product.id !== action.payload );
+      console.log("Removed item with id:", action.payload);
+      console.log("state after removal:", state);
     },
 
     updateCartQuantity(state, action) {
       const item = state.cart.find( (item) => item.product.id === action.payload.id);
       if(item) {
-        item.quantity += action.payload.quantity;
+        item.quantity = action.payload.quantity ;
       }
+
     },
 
     clearCart(state) {

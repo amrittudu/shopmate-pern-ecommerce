@@ -10,7 +10,9 @@ const Navbar = () => {
   let cartItemsCount = 0;
 
   if(cart) {
+    console.log("Cart contents in Navbar:", cart);
     cartItemsCount = cart.reduce( (total, item) => total + item.quantity, 0);
+    console.log("Total items in cart:", cartItemsCount);
   }
 
   return <>
@@ -67,14 +69,15 @@ const Navbar = () => {
               className=" relative p-2 rounded-lg hover:bg-secondary transition-colors"
             >
               <ShoppingCart className="w-5 h-5 text-foreground"/>
+              {
+                cartItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartItemsCount} {console.log("Rendering cart items count badge:", cartItemsCount)}
+                  </span>
+                )
+              }
             </button>
-            {
-              cartItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItemsCount}
-                </span>
-              )
-            }
+            
 
         </div>
 
