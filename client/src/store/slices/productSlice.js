@@ -52,11 +52,11 @@ export const postReview = createAsyncThunk(
   async ( {productId, review }, thunkAPI) => {
     try {
       const res = await axiosInstance.put(`/product/post-new/review/${productId}`, review ) ;
-      toast.success(res.data.message || "Review posted successfully.");
+      toast.success(res.data.message || "Review posted successfully.") ;
       return res.data.review;
     } catch(error) {
       toast.error(error.response.data.message || "Failed to post review.");
-      return thunkAPI.rejectWithValue(
+      return thunkAPI.rejectWithValue (
         error.response.data.message || "Failed to post review."
       );
     }
@@ -85,7 +85,7 @@ export const fetchProductWithAI  = createAsyncThunk(
       return res.data;
     }
     catch(error) {
-      toast.error(error.response.data.message)
+      toast.error(error.response.data.message);
       return thunkAPI.rejectWithValue(
         error.response.data.message || "Failed to fetch product details."
       )
