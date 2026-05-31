@@ -3,15 +3,19 @@ import { X, Search, Sparkles } from "lucide-react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductWithAI } from "../../store/slices/productSlice";
+import { toggleAIModal } from "../../store/slices/popupSlice";
+
 const AISearchModal = () => {
-  const [userPrompt] = useState("");
+  
+  const [userPrompt, setUserPrompt] = useState("");
   const { aiSearching } = useSelector( state => state.product);
   const { isAIPopupOpen } = useSelector( state => state.popup);
   const dispatch = useDispatch();
 
   const exampleText = [
-    "A wireless headphone for gaming with good bass",
-    "A good football for outdoor play",
+    "I want an iphone with good camera and battery backup",
+    "Mujhe ek football chahiye",
+    "Suggest me a coding laptop"
   ];
 
 
@@ -28,7 +32,6 @@ const AISearchModal = () => {
     <div
       className="fixed inset-0 bg-black/50 backdrop-blur-sm 
       z-50 flex items-center justify-center p-4"
-      onClick= { () => dispatch( toggleAIModal()) }
     >
       <div
         className="bg-background/95 backdrop-blur-md border 

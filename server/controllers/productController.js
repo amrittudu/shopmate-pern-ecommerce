@@ -62,6 +62,7 @@ export const createProduct  = catchAsyncErrors( async (req, res, next) => {
 export const fetchAllProducts = catchAsyncErrors( async (req, res, next) => {
 
     const { availability, price, category, ratings, search } = req.query ;
+
     const page = parseInt(req.query.page) || 1 ;
     const limit = 10 ;
     const offset = (page - 1) * limit ;
@@ -71,13 +72,13 @@ export const fetchAllProducts = catchAsyncErrors( async (req, res, next) => {
     let paginationPlaceholders = {} ;
 
     // filter products based on availability
-    if( availability  === "in_stock" ) {
+    if( availability  === "in-stock" ) {
         conditions.push(`stock > 5`);   
     }
     else if ( availability === "limited" ) {
         conditions.push(`stock <= 5 AND stock > 0`);
     }
-    else if ( availability === "out_of_stock" ) {
+    else if ( availability === "out-of-stock" ) {
         conditions.push(`stock = 0`);
     }
 
@@ -296,12 +297,12 @@ export const fetchSingleProduct = catchAsyncErrors( async ( req, res, next) => {
         message : "Product fetched successfully",
         product : result.rows[0]
     });
-
+    
 });
 
 export const postProductReview = catchAsyncErrors ( async (req, res, next) => {
     
-    const { productId } = req.params;   
+    const { productId } = req.params;
     const { rating, comment } = req.body;
     if( !rating || !comment ) {
         return next ( new ErrorHandler( "Please enter all fields", 400));
@@ -415,7 +416,6 @@ export const fetchAIFilteredProducts = catchAsyncErrors(
 
     async (req, res, next) => {
     const { userPrompt } = req.body;
-    
     if (!userPrompt) {
       return next(new ErrorHandler("Provide a valid prompt.", 400));
     };
@@ -542,7 +542,7 @@ export const fetchAIFilteredProducts = catchAsyncErrors(
       userPrompt,
       filteredProducts
     );
-
+    
     res.status(200).json({
       success: success,
       message: "AI filtered products.",

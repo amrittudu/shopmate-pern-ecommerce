@@ -6,7 +6,7 @@ export async function getAIRecommendation(req, res, userPrompt, products ) {
     try {
         const geminiPrompt = `
         Here is a list of available products :
-        ${JSON.stringify(products)}
+        ${JSON.stringify(products, null, 2)}
 
         Based on the user's prompt, filter and suggest the best matching products:
         "${userPrompt}"
@@ -30,7 +30,7 @@ export async function getAIRecommendation(req, res, userPrompt, products ) {
         
         if( !cleanedText ) {
             return res
-            .status(200)
+            .status(500)
             .json({ success : false, message : "AI response is empty or invalid." });
         };
 
@@ -40,8 +40,10 @@ export async function getAIRecommendation(req, res, userPrompt, products ) {
             parsedProducts = JSON.parse(cleanedText) ;
 
         } catch (error) {
-            console.error("Error parsing AI response:", error);
-            return res.status(500).json({ success : false, message : "Failed to parse AI response."})
+            return res.status(500).json({ 
+                success : false, 
+                message : "Failed to parse AI response."
+            });
         }
         return { success : true, products : parsedProducts };
 

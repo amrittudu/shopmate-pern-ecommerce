@@ -31,7 +31,6 @@ const cartSlice = createSlice({
       if(item) {
         item.quantity = action.payload.quantity ;
       }
-
     },
 
     clearCart(state) {
@@ -39,7 +38,6 @@ const cartSlice = createSlice({
     }
 
   },
-  
 });
 
 export const { addToCart, removeFromCart, updateCartQuantity, clearCart } = cartSlice.actions;

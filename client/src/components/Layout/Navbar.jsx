@@ -10,11 +10,9 @@ const Navbar = () => {
   let cartItemsCount = 0;
 
   if(cart) {
-    console.log("Cart contents in Navbar:", cart);
     cartItemsCount = cart.reduce( (total, item) => total + item.quantity, 0);
-    console.log("Total items in cart:", cartItemsCount);
-  }
-
+  };
+   
   return <>
   <nav className="fixed left-0 w-full top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
     <div className="max-w-7xl mx-auto px-4">

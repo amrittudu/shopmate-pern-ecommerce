@@ -14,7 +14,7 @@ const ReviewsContainer = ({ product, productReviews }) => {
       const data = new FormData();
       data.append('rating', rating);
       data.append('comment', comment);
-      dispatch( postReview({ productId: product.id, reviewData: data }) );
+      dispatch( postReview({ productId: product.id, review: data }) );
   };
 
   return ( <>
@@ -39,7 +39,7 @@ const ReviewsContainer = ({ product, productReviews }) => {
           }
         </div>
         <textarea 
-          name="comment" 
+          name="comment"
           id="comment" 
           placeholder="Write your review here..."
           value={comment}
@@ -50,7 +50,7 @@ const ReviewsContainer = ({ product, productReviews }) => {
         <button 
           type="submit" 
           disabled={isPostingReview} 
-          className="px-6 py-2 rounded-lg bg-primary text-white font-semibold
+          className="px-6 py-2 rounded-lg bg-primary text-primary-foreground font-semibold
           hover:glow-on-hover animate-smooth diabled:opacity-50"
         >
           { isPostingReview ? "Submitting..." : "Submit Review" }
@@ -59,7 +59,6 @@ const ReviewsContainer = ({ product, productReviews }) => {
         
 
       </form>
-      
       
     )
   }
@@ -124,6 +123,7 @@ const ReviewsContainer = ({ product, productReviews }) => {
                             )
                           }
                         </button>
+                        
                       )
                     }
                   </div>

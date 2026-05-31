@@ -4,40 +4,44 @@ import { toast } from "react-toastify";
 import { toggleAIModal } from "./popupSlice";
 
 export const fetchAllProducts = createAsyncThunk(
+
   "product/fetchAll", 
   async ({
-    availabilility="", 
+    availability="", 
     price = "0-10000", 
     category = "", 
     ratings = "",
     search = "",
     page = 1,
-  }, thunkAPI) => {
+  }, thunkAPI ) => {
+
     try {
       const params = new URLSearchParams();
       if(category) params.append("category", category);
       if(price) params.append("price", price);
       if(search) params.append("search", search);
-      if(ratings) params.append("availability", availabilility);
-      if(availabilility) params.append("availability", availabilility);
+      if(ratings) params.append("ratings", ratings);
+      if(availability) params.append("availability", availability);
       if(page) params.append("page", page);
 
       const res = await axiosInstance.get(`/product?${params.toString()}`);
 
       return res.data;
     }
+    
     catch(error) {
       return thunkAPI.rejectWithValue(
         error.response.data.message || "Failed to fetch products."
       );
     }
+
   }
 );
 
 export const fetchProductDetails = createAsyncThunk(
   "product/singleProduct",
   async (id, thunkAPI) => {
-    try{
+    try {
       const res = await axiosInstance.get(`/product/singleProduct/${id}`);
       return res.data.product;
     } catch(error) {
@@ -80,7 +84,7 @@ export const fetchProductWithAI  = createAsyncThunk(
   "product/ai-search",
   async ( userPrompt, thunkAPI) => {
     try{
-      const res = await axiosInstance.post(`/product/ai-search`, userPrompt);
+      const res = await axiosInstance.post(`/product/ai-search`, { userPrompt });
       thunkAPI.dispatch(toggleAIModal());
       return res.data;
     }
@@ -114,7 +118,7 @@ const productSlice = createSlice({
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload;
+        state.products = action.payload.products;
         state.newProducts = action.payload.newProducts;
         state.topRatedProducts = action.payload.topRatedProducts;
         state.totalProducts = action.payload.totalProducts;

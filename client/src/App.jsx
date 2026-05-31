@@ -27,6 +27,7 @@ import { useEffect } from "react";
 import { getUser } from "./store/slices/authSlice";
 import { Loader } from "lucide-react";
 import { fetchAllProducts } from "./store/slices/productSlice";
+
 const App = () => {
   const {authUser, isCheckingAuth} = useSelector( (state) => state.auth);
   const dispatch = useDispatch();
