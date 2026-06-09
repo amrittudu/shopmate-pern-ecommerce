@@ -20,10 +20,7 @@ const cartSlice = createSlice({
     },
 
     removeFromCart(state, action ) {
-      console.log("state before removal:", state);
       state.cart = state.cart.filter( (item) => item.product.id !== action.payload );
-      console.log("Removed item with id:", action.payload);
-      console.log("state after removal:", state);
     },
 
     updateCartQuantity(state, action) {

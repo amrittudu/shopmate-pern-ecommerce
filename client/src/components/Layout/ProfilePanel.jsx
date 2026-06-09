@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { toggleAuthPopup } from "../../store/slices/popupSlice";
 import {logout , updatePassword, updateProfile} from "../../store/slices/authSlice";
-
+import { toggleCart, toggleSidebar } from "../../store/slices/popupSlice";
 const ProfilePanel = () => {
   const dispatch = useDispatch();
   const { isAuthPopupOpen } = useSelector( (state) => state.popup );

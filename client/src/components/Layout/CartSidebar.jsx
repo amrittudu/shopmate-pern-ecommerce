@@ -9,6 +9,7 @@ const CartSidebar = () => {
   const { isCartOpen} = useSelector( (state) => state.popup);
   const {cart} = useSelector( (state) => state.cart);
   
+
   const updateQuantity = ( id, quantity) => {
     if( quantity <= 0) {
       dispatch( removeFromCart(id));
@@ -82,6 +83,7 @@ const CartSidebar = () => {
                             <div className="flex items-center space-x-2 mt-2">
                               <button className="p-1 rounded glass-card hover:glow-on-hover animate-smooth"
                                 onClick={ () => { updateQuantity( item.product.id, item.quantity - 1 ); }}
+                                disabled= { item.quantity === 1}
                               >
                                 <Minus className="w-4 h-4" />
                               </button>
