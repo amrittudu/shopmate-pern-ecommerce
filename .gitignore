@@ -12,3 +12,5 @@ server/uploads/
 server/config/config.env
 
 .vscode/
+
+client/config.env

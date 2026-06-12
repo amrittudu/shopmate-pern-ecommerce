@@ -193,7 +193,7 @@ const Cart = () => {
                       Proceed to Checkout
                     </Link>                      
                   )
-                }f
+                }
 
                 <Link
                   to={"/products"}

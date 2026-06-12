@@ -182,7 +182,7 @@ const Orders = () => {
                                     alt={item.title}
                                     className="w-16 h-16 object-cover rounded-lg"
                                   />
-                                  <div className="flex min-w-0">
+                                  <div className="flex-1 min-w-0">
                                     <h4>
                                       {item.title}
                                     </h4>
@@ -228,7 +228,6 @@ const Orders = () => {
                           )} */}
                           
                         </div>
-
                         
                       </div>
                     )

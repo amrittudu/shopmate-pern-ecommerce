@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postReview } from "../../store/slices/productSlice";
+import { Star } from "lucide-react";
+import { postReview, deleteReview } from "../../store/slices/productSlice";
+
 const ReviewsContainer = ({ product, productReviews }) => {
+  
   const { authUser } = useSelector( (state) => state.auth);
   const { isReviewDeleting, isPostingReview } = useSelector( (state) => state.product);
   
@@ -56,8 +59,6 @@ const ReviewsContainer = ({ product, productReviews }) => {
           { isPostingReview ? "Submitting..." : "Submit Review" }
         </button>
 
-        
-
       </form>
       
     )
@@ -91,7 +92,7 @@ const ReviewsContainer = ({ product, productReviews }) => {
                               <Star 
                                 key={i} 
                                 className={`w-4 h-4 ${
-                                  i < Math.floor(product.ratings)
+                                  i < Math.floor(review.rating)
                                     ? 'text-yellow-400 fill-current' 
                                     : 'text-gray-300'
                                 }`}
@@ -107,7 +108,7 @@ const ReviewsContainer = ({ product, productReviews }) => {
                     {
                       authUser?.id === review.reviewer?.id && (
                         <button
-                          onClick= { () => dispatch( deleteReview( product.id, review.review_id))}
+                          onClick= { () => dispatch( deleteReview( { productId : product.id, reviewId : review.review_id}))}
                           className="my-6 w-fit flex items-center space-x-3 p-3 rounded-lg glass-card hover:glow-on-hover text-destructive
                           hover:text-destructive-foreground group"
                         >

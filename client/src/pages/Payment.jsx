@@ -7,12 +7,13 @@ import PaymentForm from "../components/PaymentForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { placeOrder } from "../store/slices/orderSlice";
 import { ArrowRight } from "lucide-react";
+
 const Payment = () => {
   const { authUser} = useSelector( (state) => state.auth);
   const navigateTo = useNavigate();
-
+  
   if( !authUser) {
-    return navigateTo("/login");
+    return navigateTo("/products");
   };
 
   const [stripePromise, setStripePromise] = useState(null);
@@ -38,9 +39,7 @@ const Payment = () => {
     city: "",
     zipCode: "",
     country: "India"
-
     }
-
   );
 
   const total = cart.reduce(
@@ -51,8 +50,7 @@ const Payment = () => {
   
   if(total > 50) {
     totalWithTax += 2;
-
-  }
+  };
 
   const handlePlaceOrder = (e) => {
     e.preventDefault();
@@ -414,11 +412,12 @@ const Payment = () => {
 
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>
       </div>
+
     </>
   );
 };

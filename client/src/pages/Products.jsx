@@ -19,10 +19,8 @@ const Products = () => {
   const query = useQuery();
   const searchTerm = query.get("search");
   const searchedCategory = query.get("category");
-
   const [ searchQuery, setSearchQuery ] = useState( searchTerm || "");
   const [ selectedCategory, setSelectedCategory] = useState( searchedCategory || "");
-
   const [ priceRange, setPriceRange ] = useState( [0, 10000] );
   const [ selectedRating, setSelectedRating ] = useState(0);
   const [ availability, setAvailability ] = useState("");
@@ -30,10 +28,9 @@ const Products = () => {
   const [ isMobileFilterOpen, setIsMobileFilterOpen ] = useState(false);
   const dispatch = useDispatch();
 
-
   useEffect( () => {
 
-    dispatch(fetchAllProducts({
+    dispatch(fetchAllProducts ({
           category : selectedCategory,
           price : `${priceRange[0]}-${priceRange[1]}`,
           search : searchQuery,

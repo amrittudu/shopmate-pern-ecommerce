@@ -109,7 +109,7 @@ export const placeNewOrder = catchAsyncErrors(async (req, res, next) => {
     values
   );
 
-  await database.query(
+  await database.query (
     `
     INSERT INTO shipping_info (order_id, full_name, state, city, country, address, pincode, phone)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
@@ -175,7 +175,8 @@ export const fetchSingleOrder = catchAsyncErrors ( async (req, res, next) => {
 });
 
 export const fetchMyOrders = catchAsyncErrors ( async ( req, res, next ) => {
-    const result = await database.query(
+  
+  const result = await database.query (
         `
             SELECT o.*, COALESCE(
     json_agg(
@@ -208,7 +209,7 @@ export const fetchMyOrders = catchAsyncErrors ( async ( req, res, next ) => {
         [req.user.id]
     );
 
-    res.status(200).json({
+    res.status(200).json ({
         success: true,
         message: "All your orders are fetched.",
         myOrders: result.rows,
