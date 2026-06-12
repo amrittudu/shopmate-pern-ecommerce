@@ -148,19 +148,21 @@ const productSlice = createSlice({
       .addCase(fetchProductDetails.rejected, (state) => {
         state.loading = false;
       })
+
       .addCase(postReview.pending, (state) => {
         state.isPostingReview = true;
       })
       .addCase(postReview.fulfilled, (state, action) => {
         state.isPostingReview = false;
+
         const newReview = action.payload.review;
         const authUser = action.payload.authUser;
+
         const existingReviewIndex = state.productReviews.findIndex( 
           rev => rev.reviewer?.id === newReview.user_id);
         if(existingReviewIndex !== -1) {
-          state.productReviews[existingReviewIndex].rating = Number(newReview.rating);
-          state.productReviews[existingReviewIndex].comment = newReview.comment;
-          
+          state.productReviews[existingReviewIndex].rating = Number(newReview.rating) ; 
+          state.productReviews[existingReviewIndex].comment = newReview.comment ;
         }
         else {
           state.productReviews = [
@@ -175,11 +177,11 @@ const productSlice = createSlice({
             ...state.productReviews,
           ];
         }
-
       })
       .addCase(postReview.rejected, (state) => {
         state.isPostingReview = false;
       })
+
       .addCase(deleteReview.pending, (state) => {
         state.isReviewDeleting = true;
       })
@@ -191,6 +193,7 @@ const productSlice = createSlice({
       .addCase(deleteReview.rejected, (state) => {
         state.isReviewDeleting = false;
       })
+
       .addCase(fetchProductWithAI.pending, (state) => {
         state.aiSearching = true;
       })
@@ -202,6 +205,7 @@ const productSlice = createSlice({
       .addCase(fetchProductWithAI.rejected, (state) => {
         state.aiSearching = false;
       })
+
   },
 });
 

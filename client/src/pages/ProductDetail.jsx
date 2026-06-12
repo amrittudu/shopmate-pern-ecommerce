@@ -74,7 +74,6 @@ const ProductDetail = () => {
     )
   }
 
-
   return (
     <>
       <div className="min-h-screen pt-20">
