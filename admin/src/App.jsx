@@ -9,8 +9,44 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
+
+import Dashboard from "./components/Dashboard";
+import SideBar from "./components/SideBar";
+import Orders from "./components/Orders";
+import Products from "./components/Products";
+import Profile from "./components/Profile";
+import Users from "./components/Users";
+import { User } from "lucide-react";
 
 function App() {
+
+  const { openedComponent } = useSelector = useSelector( (state) => state.extra);
+  const { user, isAuthenticated } = useSelector( (state) => state.auth);
+
+
+  const renderDashBoardContent = () => {
+    switch( openedComponent) {
+      case "Dashboard" :
+        <Dashboard/>
+        break;
+      case "Orders" :
+        <Orders/>
+        break;
+      case "Users" :
+        <Users/>
+        break;
+      case "Profile" :
+        <Profile/>
+        break;
+      case "Products" :
+        <Products/>
+        break;
+        
+      default:
+        return <Dashboard/>;
+    }
+  }
 
   return (
     <Router>
