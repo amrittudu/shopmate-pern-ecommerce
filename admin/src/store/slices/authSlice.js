@@ -3,6 +3,7 @@ import axios from "axios";
 import { axiosInstance } from "../../lib/axios";
 import { toast } from "react-toastify";
 
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -97,7 +98,6 @@ const authSlice = createSlice({
       state.user = state.user;
       state.isAuthenticated = state.isAuthenticated;
     }
-
   },
 });
 
@@ -159,7 +159,7 @@ export const forgotPassword = (email) => async (dispatch) => {
   dispatch(authSlice.actions.forgotPasswordRequest());
   try {
     await axiosInstance
-      .post("/auth/password/forgot?frontendUrl=http://localhost:5174", email)
+      .post("/auth/password/forgot?frontendUrl=http://localhost:5173", email)
       .then((res) => {
         dispatch(authSlice.actions.forgotPasswordSuccess());
         toast.success(res.data.message);

@@ -9,44 +9,42 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import { ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 import Dashboard from "./components/Dashboard";
-import SideBar from "./components/SideBar";
 import Orders from "./components/Orders";
 import Products from "./components/Products";
 import Profile from "./components/Profile";
 import Users from "./components/Users";
 import { User } from "lucide-react";
+import { useEffect } from "react";
+import { getUser } from "./store/slices/authSlice";
 
 function App() {
 
-  const { openedComponent } = useSelector = useSelector( (state) => state.extra);
+  const { openedComponent }  = useSelector( (state) => state.extra);
   const { user, isAuthenticated } = useSelector( (state) => state.auth);
-
-
+  
+  // const dispatch = useDispatch();
+  // useEffect( () => {
+  //   dispatch(getUser());
+  // }, []);
+  
   const renderDashBoardContent = () => {
     switch( openedComponent) {
       case "Dashboard" :
-        <Dashboard/>
-        break;
+        return <Dashboard/>
       case "Orders" :
-        <Orders/>
-        break;
+        return <Orders/>
       case "Users" :
-        <Users/>
-        break;
+        return <Users/>;
       case "Profile" :
-        <Profile/>
-        break;
+        return <Profile/>;
       case "Products" :
-        <Products/>
-        break;
-        
+        return <Products/>;
       default:
         return <Dashboard/>;
     }
-  }
+  };
 
   return (
     <Router>
@@ -62,7 +60,7 @@ function App() {
             isAuthenticated && user?.role === "Admin" ? (
               <div className="flex min-h-screen">
                 <SideBar />
-                {renderDashboardContent()}
+                {renderDashBoardContent()}
               </div>
             ) : (
               <Navigate to="/login" replace />

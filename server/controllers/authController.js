@@ -9,6 +9,7 @@ import { generateResetPasswordToken } from "../utils/generateResetPasswordToken.
 import crypto from "crypto";
 import cloudinary from "cloudinary";
 
+
 export const register = catchAsyncErrors(async (req, res, next) => {
 
     const { name, email, password } = req.body;
@@ -39,7 +40,6 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     );
 
     sendToken(user.rows[0], 201, "User registered successfully", res) ;
-
 });
 
 export const login = catchAsyncErrors( async (req, res, next) => {
@@ -89,7 +89,6 @@ export const logout = catchAsyncErrors( async (req, res, next) => {
 export const forgotPassword = catchAsyncErrors( async (req, res, next) => {
 
     const { email } = req.body;
-    console.log("forgot pass backend => ",req.body);
     const {frontendUrl} = req.query;
     let userResult = await database.query (
         "SELECT * FROM users WHERE email = $1", [email]
@@ -107,13 +106,13 @@ export const forgotPassword = catchAsyncErrors( async (req, res, next) => {
         [hashedToken, resetPasswordExpireTime / 1000, email]
     );
     
-    const resetPasswordUrl = `${frontendUrl}/password/reset/${resetToken}`;
+    const resetPasswordUrl = `${frontendUrl}/password/reset/${resetToken}` ;
     const message = generateEmailTemplate(resetPasswordUrl);
 
-    try{
+    try {
         await sendEmail({
             email : user.email,
-            subject : "Ecommerce Pssword Recovery",
+            subject : "ShopMate Ecommerce Password Recovery",
             message,
         });
 
