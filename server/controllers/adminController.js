@@ -38,7 +38,7 @@ export const deleteUser = catchAsyncErrors ( async ( req, res, next ) => {
 
     if( deleteUser.rows.length === 0 ) {
         return next( new ErrorHandler("User not found", 404) );
-    }
+    };
 
     res.status(200).json({
         success: true,

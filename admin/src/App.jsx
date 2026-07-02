@@ -18,16 +18,25 @@ import Users from "./components/Users";
 import { User } from "lucide-react";
 import { useEffect } from "react";
 import { getUser } from "./store/slices/authSlice";
+import { fetchAllUsers } from "./store/slices/adminSlice";
+import { fetchAllProducts } from "./store/slices/productsSlice";
 
 function App() {
 
   const { openedComponent }  = useSelector( (state) => state.extra);
   const { user, isAuthenticated } = useSelector( (state) => state.auth);
   
-  // const dispatch = useDispatch();
-  // useEffect( () => {
-  //   dispatch(getUser());
-  // }, []);
+  const dispatch = useDispatch();
+  useEffect( () => {
+    dispatch(getUser());
+  }, []);
+
+  useEffect( () => {
+    if( isAuthenticated) {
+      dispatch(fetchAllUsers());
+      dispatch(fetchAllProducts());
+    }
+  })
   
   const renderDashBoardContent = () => {
     switch( openedComponent) {

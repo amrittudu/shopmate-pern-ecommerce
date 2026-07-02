@@ -6,10 +6,10 @@ import {toggleNavbar} from '../store/slices/extraSlice.js';
 
 const Header = () => {
   
-  const { user } = useSelector( (state) => state.auth);
-  const { openedComponent }  = useSelector( (state) => state.extra);
-  const dispatch = useDispatch();
-  const {} = useSelector( state => state.auth);
+  const { user } = useSelector( (state) => state.auth) ;
+  const { openedComponent }  = useSelector( (state) => state.extra) ;
+  const dispatch = useDispatch() ;
+  const {} = useSelector( state => state.auth) ;
   
   return (
     <>
@@ -22,7 +22,7 @@ const Header = () => {
         <div className="flex gap-3 items-center">
           <Menu 
             className="block md:hidden" 
-            onClick={ () => dispatch(toggleNavbar()) }
+            onClick={ () => { console.log("menu clicked"); dispatch(toggleNavbar()) }  }
           />
 
           <img 

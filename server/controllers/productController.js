@@ -18,6 +18,7 @@ export const getCurrencyExchangeRate = catchAsyncErrors( async (req, res, next) 
 
 export const createProduct  = catchAsyncErrors( async (req, res, next) => {
     const { name, description, price, stock, category } = req.body;
+    console.log(name.length, description.length, price, stock, category);
     const createdBy = req.user.id;
     
     if( !name || !description || !price || !stock || !category ) {

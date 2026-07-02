@@ -175,8 +175,7 @@ const Profile = () => {
           </button>
 
           </div>
-
-
+          
         </div>
       </main>
     </>

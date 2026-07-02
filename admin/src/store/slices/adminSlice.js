@@ -23,14 +23,15 @@ export const adminSlice = createSlice({
     getAllUsersRequest(state) {
       state.loading = true;
     },
-    getAllUsersSuccess(state) {
+    getAllUsersSuccess(state, action ) {
       state.loading = false;
-      state.users = action.payload.totalUsers;
+      state.users = action.payload.users;
       state.totalUsers = action.payload.totalUsers;
     },
     getAllUsersFailed(state) {
       state.loading = false;
     },
+
     //---------------
     deleteUserRequest(state) {
       state.loading = true;
@@ -50,7 +51,6 @@ export const adminSlice = createSlice({
     },
     getStatsRequest(state, action) {
       state.loading = true;
-
     },
     getStatsSuccess(state, action) {
       state.loading = false;
@@ -65,10 +65,7 @@ export const adminSlice = createSlice({
       state.revenueGrowth = action.payload.revenueGrowth;
       state.newUsersThisMonth = action.payload.newUsersThisMonth;
       state.currentMonthSales = action.payload.currentMonthSales;
-
     },
-
-    
 
   },
 });
@@ -78,12 +75,11 @@ export const fetchAllUsers = (page) => async(dispatch) => {
   await axiosInstance
     .get(`/admin/getallusers?page=${page || 1}`)
     .then((res) => {
-      dispatch(adminSlice.actions.getAllUsersSuccess());
+      dispatch(adminSlice.actions.getAllUsersSuccess(res.data));
     })
     .catch( (error) => {
       dispatch(adminSlice.actions.getAllUsersFailed());
     });
-    
 };
 
 export const deleteUser = (id, page) => async(dispatch, getState) => {

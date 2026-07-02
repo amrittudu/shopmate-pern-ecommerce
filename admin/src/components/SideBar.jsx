@@ -57,7 +57,7 @@ const SideBar = () => {
     <>
       <aside 
         className={`${
-          isNavbarOpened ? "left-[10px]" : "-left-full" 
+          isNavbarOpened ? "left-2px" : "-left-full" 
           } fixed w-64 h-[97.5%] rounded-xl bg-white z-10 mt-[10px] transition-all
           duration-300 shadow-lg p-4 space-y-4 flex flex-col justify-between md:left-[10px] `}
       >
@@ -71,7 +71,6 @@ const SideBar = () => {
               />
             </h2>
           </div>
-
           {
             links.map( (item, index) => {
               return(

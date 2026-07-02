@@ -13,8 +13,6 @@ import database from "./database/db.js";
 
 const app = express();
 
-console.log(process.env.FRONTEND_URL, process.env.DASHBOARD_URL);
-
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
@@ -41,7 +39,6 @@ app.post(
       return res.status(400).send(`Webhook Error: ${error.message || error}`);
     }
 
-    console.log("eventtype", event.type, event);
     if (event.type === "payment_intent.succeeded") {
       const paymentIntent_client_secret = event.data.object.client_secret;
       try {
@@ -87,14 +84,12 @@ app.use(
   })
 );
 
-
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/order", orderRouter);
 
 createTables();
-
 
 app.use(errorMiddleware);
 

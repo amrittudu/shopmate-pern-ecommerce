@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { axiosInstance } from "../../lib/axios";
-
+import { toast } from "react-toastify";
 export const fetchAllOrders = createAsyncThunk("orders/fetchAll", 
   async (_, thunkAPI) => {
     try {
@@ -18,9 +18,9 @@ export const fetchAllOrders = createAsyncThunk("orders/fetchAll",
 export const updateOrderStatus = createAsyncThunk("orders/updateStatus", 
   async ({orderId, status} , thunkAPI) => {
     try {
-      const {data} = await axiosInstance.put(`order/admin/update/${orderId}`, {status} );
-      toast.success(data.message || "Order status updated successfully");
-      return updatedOrder;
+      const {data} = await axiosInstance.put(`/order/admin/update/${orderId}`, {status} );
+      toast.success(data.message);
+      return data.updatedOrder;
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || "Failed to update order status"
@@ -59,7 +59,7 @@ const orderSlice = createSlice({
       state.loading = false;
       state.orders = action.payload;
     })
-    .addCase(fetchAllOrders.rejected, (state) => {
+    .addCase(fetchAllOrders.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     })
@@ -76,7 +76,7 @@ const orderSlice = createSlice({
         };
       }
     })
-    .addCase(updateOrderStatus.rejected, (state) => {
+    .addCase(updateOrderStatus.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     })
@@ -85,16 +85,14 @@ const orderSlice = createSlice({
     })
     .addCase(deleteOrder.fulfilled, (state, action) => {
       state.loading = false;
-      state.orders = state.fulfilled.filter(
+      state.orders = state.orders.filter(
         (order) => order.id !== action.payload
       );
     })
-    .addCase(deleteOrder.rejected, (state) => {
+    .addCase(deleteOrder.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     })
-
-
   },
 });
 
