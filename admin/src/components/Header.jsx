@@ -22,7 +22,7 @@ const Header = () => {
         <div className="flex gap-3 items-center">
           <Menu 
             className="block md:hidden" 
-            onClick={ () => { console.log("menu clicked"); dispatch(toggleNavbar()) }  }
+            onClick={ () => { dispatch(toggleNavbar()) }  }
           />
 
           <img 
@@ -31,8 +31,8 @@ const Header = () => {
             className="w-14 h-14 rounded-full object-cover"
           />
         </div>
-
       </header>
+
     </>
   );
 

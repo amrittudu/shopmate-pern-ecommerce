@@ -10,30 +10,50 @@ const OrdersChart = () => {
     Delivered: "#22c55e", // green
     Cancelled: "#ef4444", // red
   };
+
+  const renderLabel = ({ cx, cy, midAngle, outerRadius, value }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = outerRadius + 35;
+
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="#000"
+        textAnchor="middle"
+        dominantBaseline="central"
+      >
+        {value}
+      </text>
+    );
+  };
+
   const orderStatusData = Object.keys(orderStatusCounts).map((status) => ({
     status,
-    count: parseInt(orderStatusCounts[status]),
+    count: Number(orderStatusCounts[status]),
   }));
 
   return (
     <>
       <div className="bg-white p-4 rounded-xl shadow-md">
         <h3 className="font-semibold mb-2">Order Status</h3>
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie
               data={orderStatusData}
               dataKey="count"
               nameKey="status"
-              cx="50%"
-              cy="50%"
               outerRadius={80}
-              label
+              label= {renderLabel}
             >
               {orderStatusData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={statusColors[entry.status] || "#ccc"} // fallback color
+                  
                 />
               ))}
             </Pie>

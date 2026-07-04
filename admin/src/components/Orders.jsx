@@ -128,7 +128,7 @@ const Orders = () => {
                               {
                                 Array.isArray(order.order_items) && order.order_items.map( item => {
                                   return(
-                                    <div key={item.order_id} className="flex items-center gap-4 mb-2 border-b pb-2">
+                                    <div key={item.order_item_id} className="flex items-center gap-4 mb-2 border-b pb-2">
                                       {
                                         item.image && (
                                           <img src={item.image} alt ={item.title} className="w-16 h-16 object-cover cursor-pointer"

@@ -19,6 +19,7 @@ const Index = () => {
         {newProducts.length > 0 && (
           <ProductSlider title="New Arrivals" products={newProducts} />
         )}
+        
         {topRatedProducts.length > 0 && (
           <ProductSlider
             title="Top Rated Products"

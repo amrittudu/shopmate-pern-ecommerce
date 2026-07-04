@@ -6,7 +6,7 @@ import {addToCart} from "../../store/slices/cartSlice";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  
+  console.log("product card", product);
   const handleAddToCart = (product, e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -78,7 +78,6 @@ const ProductCard = ({ product }) => {
         <span className="text-sm text-muted-foreground">
           ({product.review_count})
         </span>
-      
       </div>
       
       {/* product price */}

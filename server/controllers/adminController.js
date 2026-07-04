@@ -151,7 +151,7 @@ export const dashboardStats = catchAsyncErrors(async (req, res, next) => {
   const currentMonthSalesQuery = await database.query(
     `
       SELECT SUM(total_price) AS total 
-      FROM orders 
+      FROM orders
       WHERE paid_at IS NOT NULL AND created_at BETWEEN $1 AND $2  
       `,
     [currentMonthStart, currentMonthEnd]
