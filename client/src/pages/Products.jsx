@@ -8,13 +8,15 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchAllProducts } from "../store/slices/productSlice";
 import { toggleAIModal } from "../store/slices/popupSlice";
-
+import { useSearchParams } from "react-router-dom";
 const Products = () => {
   const { products, totalProducts } = useSelector( (state) => state.product);
 
   const useQuery = () => {
     return new URLSearchParams(useLocation().search);
   };
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const query = useQuery();
   const searchTerm = query.get("search");
@@ -26,9 +28,26 @@ const Products = () => {
   const [ availability, setAvailability ] = useState("");
   const [ currentPage, setCurrentPage ] = useState(1);
   const [ isMobileFilterOpen, setIsMobileFilterOpen ] = useState(false);
+
   const dispatch = useDispatch();
 
-  useEffect( () => {
+  const updateCategory = (category) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+
+    const params = new URLSearchParams(searchParams);
+    
+    if (category ) {
+      params.set("category", category);
+    } else {
+      params.delete("category");
+    }
+    console.log("params =>", params.toString() ) ;
+    setSearchParams(params) ;
+
+  };
+
+  useEffect ( () => {
 
     dispatch(fetchAllProducts ({
           category : selectedCategory,
@@ -43,7 +62,7 @@ const Products = () => {
   }, [dispatch, selectedCategory, priceRange, searchQuery, selectedRating, availability, currentPage]);
 
   const totalPages = Math.ceil(totalProducts / 10);
-   const handlePageChange = (page) => {
+    const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
@@ -180,7 +199,7 @@ const Products = () => {
 
                 <div className="space-y-2">
                   <button 
-                    onClick={ () => setSelectedCategory("")} 
+                    onClick={ () => updateCategory("")} 
                     className={`w-full p-2 text-left rounded ${
                       !selectedCategory 
                         ? "bg-primary/20"
@@ -193,7 +212,7 @@ const Products = () => {
                       return (
                         <button
                         key={category.id}
-                        onClick={ () => setSelectedCategory(category.name)}
+                        onClick={ () => updateCategory(category.name)}
                         className={`w-full p-2 text-left rounded ${
                           selectedCategory === category.name
                             ? "bg-primary/20"

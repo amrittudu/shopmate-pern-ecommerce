@@ -5,7 +5,6 @@ import { v2 as cloudinary } from "cloudinary";
 import axios from "axios";
 import {getAIRecommendation} from "../utils/getAIRecommendation.js";
 
-
 export const getCurrencyExchangeRate = catchAsyncErrors( async (req, res, next) => {
     try{
         const response = await axios.get('')
@@ -18,7 +17,6 @@ export const getCurrencyExchangeRate = catchAsyncErrors( async (req, res, next) 
 
 export const createProduct  = catchAsyncErrors( async (req, res, next) => {
     const { name, description, price, stock, category } = req.body;
-    console.log(name.length, description.length, price, stock, category);
     const createdBy = req.user.id;
     
     if( !name || !description || !price || !stock || !category ) {
@@ -31,7 +29,7 @@ export const createProduct  = catchAsyncErrors( async (req, res, next) => {
 
         const images = Array.isArray(req.files.images) 
         ? req.files.images
-        : [req.files.images];
+        : [req.files.images] ;
 
         for (const image of images) {
             const result = await cloudinary.uploader.upload( image.tempFilePath, {
@@ -56,14 +54,11 @@ export const createProduct  = catchAsyncErrors( async (req, res, next) => {
         message : "Product created successfully",
         product: product.rows[0],
     });
-    
- 
+
 });
 
 export const fetchAllProducts = catchAsyncErrors( async (req, res, next) => {
-
     const { availability, price, category, ratings, search } = req.query ;
-
     const page = parseInt(req.query.page) || 1 ;
     const limit = 10 ;
     const offset = (page - 1) * limit ;
@@ -152,7 +147,7 @@ export const fetchAllProducts = catchAsyncErrors( async (req, res, next) => {
     LIMIT ${paginationPlaceholders.limit} 
     OFFSET ${paginationPlaceholders.offset}
     `;
-
+    
     const result = await database.query(query, values);
 
     // query for fetching new products
@@ -188,7 +183,8 @@ export const fetchAllProducts = catchAsyncErrors( async (req, res, next) => {
         products : result.rows,
         totalProducts,
         newProducts : newProductsResult.rows,
-        topRatedProducts : topRatedResult.rows
+        topRatedProducts : topRatedResult.rows,
+        hotMessage : "Hot deals on top-rated products! Don't miss out on our exclusive offers. Shop now and enjoy the best prices on high-quality items. Limited time only!"
     });
 
 });
@@ -197,7 +193,7 @@ export const updateProduct = catchAsyncErrors( async (req, res, next) => {
     
     const { productId } = req.params;
     const {name, description, price, stock, category } = req.body;
-    debugger;
+    
     if( !name || !description || !price || !stock || !category ) {
         return next(new ErrorHandler("Please enter all fields", 400));
     };

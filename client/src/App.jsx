@@ -29,6 +29,7 @@ import { Loader } from "lucide-react";
 import { fetchAllProducts } from "./store/slices/productSlice";
 
 const App = () => {
+
   const {authUser, isCheckingAuth} = useSelector( (state) => state.auth);
   const dispatch = useDispatch();
 
@@ -46,9 +47,10 @@ const App = () => {
       page : 1,
      })
     );
-  },[]);
+  },[] );
 
-  const {products} = useSelector( state => state.product);
+  const {products, topRatedProducts} = useSelector( state => state.product);
+  console.log("Products in App.jsx:", products, topRatedProducts);
 
   if( (isCheckingAuth && !authUser) || !products ) {
     

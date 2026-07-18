@@ -6,7 +6,6 @@ import {addToCart} from "../../store/slices/cartSlice";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  console.log("product card", product);
   const handleAddToCart = (product, e) => {
     e.preventDefault();
     e.stopPropagation();

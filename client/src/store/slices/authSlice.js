@@ -179,7 +179,7 @@ const authSlice = createSlice({
       state.isLoggingIn = false ;
     })
 
-    .addCase( getUser.pending, (state, action) => {
+    .addCase( getUser.pending, (state) => {
       state.isCheckingAuth = true ;
       //state.authUser = null ;
     })

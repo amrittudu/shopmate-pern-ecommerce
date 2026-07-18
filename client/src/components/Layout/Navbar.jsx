@@ -1,6 +1,7 @@
 import { Menu, User, ShoppingCart, Sun, Moon, Search } from "lucide-react";
 import { useTheme } from "../../contexts/ThemeContext";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toggleSidebar, toggleSearchBar, toggleAuthPopup, toggleCart, toggleAIModal } from "../../store/slices/popupSlice";
 const Navbar = () => {
   const {theme, toggleTheme} = useTheme() ;
@@ -26,7 +27,12 @@ const Navbar = () => {
         </button>
         {/* center - logo */}
         <div className="flex-1 flex justify-center">
-          <h1 className="text-2xl font-bold text-primary">ShopMate</h1>
+          <h1 className="text-2xl font-bold text-primary">
+            <Link
+             to={"/"}>
+              Shopmate
+            </Link>
+          </h1>
         </div>
 
         {/* right - icons */}

@@ -9,7 +9,7 @@ export const fetchAllProducts = createAsyncThunk(
   "product/fetchAll", 
   async ({
     availability="", 
-    price = "0-10000", 
+    price = "0-10000",
     category = "", 
     ratings = "",
     search = "",
@@ -24,9 +24,7 @@ export const fetchAllProducts = createAsyncThunk(
       if(ratings) params.append("ratings", ratings);
       if(availability) params.append("availability", availability);
       if(page) params.append("page", page);
-
       const res = await axiosInstance.get(`/product?${params.toString()}`);
-
       return res.data;
     }
     
@@ -35,7 +33,6 @@ export const fetchAllProducts = createAsyncThunk(
         error.response.data.message || "Failed to fetch products."
       );
     }
-
   }
 );
 
@@ -132,6 +129,7 @@ const productSlice = createSlice({
         state.newProducts = action.payload.newProducts;
         state.topRatedProducts = action.payload.topRatedProducts;
         state.totalProducts = action.payload.totalProducts;
+        state.hotMessage = action.payload.hotMessage;
       })
       .addCase(fetchAllProducts.rejected, (state) => {
         state.loading = false;

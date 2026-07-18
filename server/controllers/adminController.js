@@ -5,7 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 export const getAllUsers = catchAsyncErrors ( async ( req, res, next ) => {
 
-    const page = parseInt(req.query.page) || 1;
+    const page = parseInt(req.query.page) || 1 ;
     const totalUsersResult = await database.query (
         " SELECT COUNT(*) FROM users WHERE role = $1",
         ["User"]

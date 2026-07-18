@@ -14,3 +14,8 @@ server/config/config.env
 .vscode/
 
 client/config.env
+
+#codex files
+.agents/
+docs/
+scripts/

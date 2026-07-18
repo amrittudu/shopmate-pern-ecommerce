@@ -6,7 +6,7 @@ import { catchAsyncErrors } from './catchAsyncError.js';
 export const isAuthenticated = catchAsyncErrors( async (req, res, next ) => {
     
     const { token } = req.cookies;
-
+    console.log("Token in authMiddleware:", req);
     if( !token ) {
         return next(new ErrorHandler("Please login to access this resource", 401));
     };
