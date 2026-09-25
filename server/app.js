@@ -25,7 +25,6 @@ app.post(
   "/api/v1/payment/webhook",
   express.raw({ type: "application/json" }),
   async (req, res) => {
-    console.log("🔥 WEBHOOK HIT");
     const sig = req.headers["stripe-signature"];
     let event ;
 
@@ -89,7 +88,7 @@ app.use("/api/v1/product", productRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/order", orderRouter);
 
-createTables();
+//createTables();
 
 app.use(errorMiddleware);
 

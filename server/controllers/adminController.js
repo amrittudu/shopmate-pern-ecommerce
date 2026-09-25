@@ -24,19 +24,18 @@ export const getAllUsers = catchAsyncErrors ( async ( req, res, next ) => {
         totalUsers,
         currentPage : page,
         users : users.rows,
-        
     });
+
 });
 
 export const deleteUser = catchAsyncErrors ( async ( req, res, next ) => {
     const userId = req.params.id;
-
     const deleteUser = await database.query(
         "DELETE FROM users WHERE id = $1 RETURNING *",
         [userId]
     );  
 
-    if( deleteUser.rows.length === 0 ) {
+    if ( deleteUser.rows.length === 0 ) {
         return next( new ErrorHandler("User not found", 404) );
     };
 
@@ -52,7 +51,6 @@ export const dashboardStats = catchAsyncErrors(async (req, res, next) => {
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
   const yesterdayDate = yesterday.toISOString().split("T")[0];
-
   const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
   const currentMonthEnd = new Date(
     today.getFullYear(),
@@ -214,45 +212,3 @@ export const dashboardStats = catchAsyncErrors(async (req, res, next) => {
     newUsersThisMonth,
   });
 });
-
-
-//     const today = new Date();
-//     const todayDate = today.toISOString().split("T")[0] ;
-//     const yesterday = new Date(today);
-//     yesterday.setDate( today.getDate() - 1 );
-//     const yesterdayDate = yesterday.toISOString().split("T")[0] ;
-
-//     const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-//     const currentMonthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
-//     const previousMonthStart = new Date(
-//         today.getFullYear(),
-//         today.getMonth() - 1,1
-//     );
-//     const previousMonthEnd = new Date( today.getFullYear(), today.getMonth(), 0 );
-
-//     const totalRevenueAllTimeQuery = await database.query (`
-//         SELECT SUM(total_price) FROM orders WHERE paid_at IS NOT NULL`) ;
-//     const totalRevenueAllTime = parseFloat( totalRevenueAllTime.rows[0].sum ) || 0 ;
-
-//     const totalUsersCountQuery = await database.query(`
-//         SELECT COUNT(*) FROM users WHERE role  = 'User' `);
-    
-//     const totalUsersCount = parseInt( totalUsersCountQuery.rows[0].count ) || 0 ;
-
-//     // Order Status Counts
-//     const orderStatusCountsQuery = await database.query(`
-//         SELECT order_status, COUNT(*) FROM orders WHERE paid_at IS NOT NULL GROUP BY order_status
-//     `);
-
-//     const orderStatusCounts = {
-//         Processing : 0,
-//         Shipped : 0,
-//         Delivered : 0,
-//         Cancelled : 0
-//      };
-
-
-
-
-// });

@@ -1,18 +1,25 @@
-import pkg from 'pg';
-import { createUserTable } from '../models/userTable.js';
-const { Client } = pkg;
+import { Pool } from 'pg';
 
-const database = new Client ({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: 5432,
-});
+// const database = new Client ({
+//     user: process.env.SUPA_USER,
+//     host: process.env.SUPA_HOST,
+//     database: process.env.SUPA_NAME,
+//     password: process.env.SUPA_PASSWORD,
+//     port: process.env.SUPA_PORT,
+//     ssl: {
+//         rejectUnauthorized : false
+//     }
+// });
 
+const database = new Pool({
+    connectionString : process.env.DATABASE_URL,
+    ssl : {
+        rejectUnauthorized : false
+    }
+})
 try {
     await database.connect();
-    console.log("Connected to the database successfully");
+    console.log("Connected to the supabase postgres successfully");
 }
 
 catch(error){

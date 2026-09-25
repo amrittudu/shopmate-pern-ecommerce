@@ -17,7 +17,6 @@ const Products = () => {
   };
 
   const [searchParams, setSearchParams] = useSearchParams();
-
   const query = useQuery();
   const searchTerm = query.get("search");
   const searchedCategory = query.get("category");
@@ -28,36 +27,32 @@ const Products = () => {
   const [ availability, setAvailability ] = useState("");
   const [ currentPage, setCurrentPage ] = useState(1);
   const [ isMobileFilterOpen, setIsMobileFilterOpen ] = useState(false);
-
   const dispatch = useDispatch();
 
   const updateCategory = (category) => {
     setSelectedCategory(category);
-    setCurrentPage(1);
-
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams) ;
     
     if (category ) {
       params.set("category", category);
     } else {
       params.delete("category");
     }
-    console.log("params =>", params.toString() ) ;
-    setSearchParams(params) ;
 
-  };
+    setSearchParams(params) ;
+    console.log("after search params", searchParams.toString());
+  } ;
 
   useEffect ( () => {
-
-    dispatch(fetchAllProducts ({
-          category : selectedCategory,
-          price : `${priceRange[0]}-${priceRange[1]}`,
-          search : searchQuery,
-          ratings : selectedRating,
-          availability : availability,
-          page : currentPage,
-         })
-        );
+    dispatch( fetchAllProducts ({
+      category : selectedCategory,
+      price : `${priceRange[0]}-${priceRange[1]}`,
+      search : searchQuery,
+      ratings : selectedRating,
+      availability : availability,
+      page : currentPage,
+      })
+    );
       
   }, [dispatch, selectedCategory, priceRange, searchQuery, selectedRating, availability, currentPage]);
 
@@ -81,7 +76,7 @@ const Products = () => {
           </button>
 
           {/* sidebar filters */}
-          <div 
+          <div
             className={`lg:block ${
               isMobileFilterOpen ? "block" : "hidden"
             } w-full lg:w-80 y-6`}

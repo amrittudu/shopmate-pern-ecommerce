@@ -3,7 +3,6 @@ import axios from "axios";
 import { axiosInstance } from "../../lib/axios";
 import { toast } from "react-toastify";
 
-
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -33,15 +32,15 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
     },
     getUserFailed(state) {
-      state.loading = false;
-      state.user = null;
-      state.isAuthenticated =  false;
+      state.loading = false ;
+      state.user = null ;
+      state.isAuthenticated =  false ;
     },
 
     logoutRequest(state) {
       state.loading = true;
     },
-    logoutSuccess(state, action) {
+    logoutSuccess(state) {
       state.loading = false,
       state.user = null;
       state.isAuthenticated = false;

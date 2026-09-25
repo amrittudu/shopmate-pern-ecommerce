@@ -6,6 +6,7 @@ import { toggleAuthPopup } from "../../store/slices/popupSlice";
 import { forgotPassword, resetPassword } from "../../store/slices/authSlice";
 import { login, register } from "../../store/slices/authSlice";
 const LoginModal = () => {
+
   const dispatch = useDispatch();
   const location = useLocation();
   const token = location.pathname.split("/").pop();
@@ -15,6 +16,7 @@ const LoginModal = () => {
     isLoggingIn,
     isRequestingForToken
   } = useSelector( state => state.auth);
+
   const { isAuthPopupOpen } = useSelector( state => state.popup);
   const [mode, setMode] = useState("signin");
   const [formData, setFormData] = useState( {
@@ -39,9 +41,9 @@ const LoginModal = () => {
 
     data.append("email", formData.email);
     data.append("password", formData.password);
-    if(mode === "signup") data.append("name", formData.name);
+    if( mode === "signup" ) data.append("name", formData.name);
 
-    if(mode === "forgot") {
+    if( mode === "forgot" ) {
       dispatch( forgotPassword( { email : formData.email})).then( () => {
         dispatch(toggleAuthPopup());
         setMode("signin");
@@ -49,11 +51,11 @@ const LoginModal = () => {
       return;
     }
 
-    if(mode === "reset") {
+    if ( mode === "reset" ) {
       const token = location.pathname.split("/").pop();
       dispatch( 
-        resetPassword({ 
-          token, 
+        resetPassword({
+          token,
           password : formData.password, 
           confirmPassword : formData.confirmPassword
         })
@@ -121,6 +123,7 @@ const LoginModal = () => {
                   </div>
 
                 )}
+                
               {/* email - always visible except reset mode */}
                 {mode !== "reset" && (
                   <div className="relative">

@@ -14,32 +14,31 @@ export const errorMiddleware = (err, req, res, next) => {
         err = new ErrorHandler(message, 400);
     }
 
-    if( err.name === "JsonWebTokenError") {
+    if ( err.name === "JsonWebTokenError") {
         const message = "JSON web token is invalid, try again";
         err = new ErrorHandler(message, 400);
     }
 
-    if( err.name === "TokenExpiredError")  {
+    if ( err.name === "TokenExpiredError")  {
         const message = "JSON Web Token has expired, try again.";
         err = new ErrorHandler(message, 400);
     }
 
-    if(err.name === "CastError") {
+    if ( err.name === "CastError") {
         const message = `Invalid ${err.path} : ${err.value}`;
         err = new ErrorHandler( message, 400 );
     };
     
-    console.log(err);
-
     const errorMessage = err.errors ? Object
             .values( err.errors)
             .map( (error) => error.message)
             .join(" ") : err.message;
     
-    return res.status(err.statusCode).json( {
+    return res.status(err.statusCode).json({
         success : false,
         message : errorMessage,
     });
+
 };
 
 export default ErrorHandler;

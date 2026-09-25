@@ -54,12 +54,13 @@ const SearchOverlay = () => {
                     focus:outline-none text-foreground placeholder-muted-foreground"
                   autoFocus
                 />
+
               </div>
 
               <div className="mt-6 text-center text-muted-foreground">
                 <p>Start typing to search for products...</p>
               </div>
-                            
+               
             </div>
           </div>
         </div>

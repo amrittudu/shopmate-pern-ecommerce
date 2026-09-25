@@ -28,6 +28,7 @@ export const login = createAsyncThunk(
       thunkAPI.dispatch(toggleAuthPopup()) ;
       return res.data.user ;
     }
+
     catch(error) {
       toast.error(error?.response?.data?.message);
       return thunkAPI.rejectWithValue(error?.response?.data?.message);
@@ -142,7 +143,7 @@ export const updateProfile = createAsyncThunk(
     }
   }
 );
- 
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -252,6 +253,7 @@ const authSlice = createSlice({
     })
     
   },
+  
 });
 
 export default authSlice.reducer;

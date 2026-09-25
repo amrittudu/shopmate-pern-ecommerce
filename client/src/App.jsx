@@ -30,8 +30,8 @@ import { fetchAllProducts } from "./store/slices/productSlice";
 
 const App = () => {
 
-  const {authUser, isCheckingAuth} = useSelector( (state) => state.auth);
-  const dispatch = useDispatch();
+  const {authUser, isCheckingAuth} = useSelector( (state) => state.auth) ;
+  const dispatch = useDispatch() ;
 
   useEffect( () => {
     dispatch(getUser());
@@ -49,17 +49,13 @@ const App = () => {
     );
   },[] );
 
-  const {products, topRatedProducts} = useSelector( state => state.product);
-  console.log("Products in App.jsx:", products, topRatedProducts);
-
+  const {products, topRatedProducts } = useSelector( state => state.product);
   if( (isCheckingAuth && !authUser) || !products ) {
-    
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader className="size-10 animate-spin"/>
       </div>
     )
-    
   };
 
   return (

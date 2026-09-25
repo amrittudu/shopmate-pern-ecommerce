@@ -16,7 +16,7 @@ import ReviewsContainer from "../components/Products/ReviewsContainer";
 import {fetchProductDetails} from "../store/slices/productSlice";
 import { addToCart } from "../store/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 const ProductDetail = () => {
   const {id} = useParams();
   const dispatch = useDispatch();

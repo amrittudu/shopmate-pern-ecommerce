@@ -9,17 +9,16 @@ import { generateResetPasswordToken } from "../utils/generateResetPasswordToken.
 import crypto from "crypto";
 import cloudinary from "cloudinary";
 
-
 export const register = catchAsyncErrors(async (req, res, next) => {
 
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-        return next(new ErrorHandler("Please enter all fields", 400));
+        return next(new ErrorHandler("Please input all the fields", 400));
     };
 
-    if ( password.length < 8 || 
-         password.length > 20 ) 
+    if ( password.length < 8 ||
+         password.length > 20 )
     {
         return next(new ErrorHandler("Password must be between 8 and 20 characters", 400));
     };
@@ -34,7 +33,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await database.query(
+    const user = await database.query (
         "INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *",
         [name, email, hashedPassword]
     );
@@ -44,6 +43,7 @@ export const register = catchAsyncErrors(async (req, res, next) => {
 
 export const login = catchAsyncErrors( async (req, res, next) => {
     const {email , password} = req.body;
+    console.log("email ==========> ", email, password);
     if( !email || !password ) {
         return next(new ErrorHandler("Please enter email and password", 400));
     };
@@ -63,7 +63,6 @@ export const login = catchAsyncErrors( async (req, res, next) => {
     };
      
     sendToken(user.rows[0], 200, "User logged in successfully", res);
-
 });
 
 export const getUser = catchAsyncErrors( async (req, res, next) => {

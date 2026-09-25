@@ -32,6 +32,7 @@ export const fetchAllProducts = createAsyncThunk(
       return thunkAPI.rejectWithValue(
         error.response.data.message || "Failed to fetch products."
       );
+      
     }
   }
 );

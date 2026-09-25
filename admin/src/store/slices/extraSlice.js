@@ -14,18 +14,19 @@ const extraSlice = createSlice({
     toggleComponent : (state, action) => {
       state.openedComponent = action.payload;
     },
-    toggleNavbar : (state, action) => {
+    toggleNavbar : (state) => {
       state.isNavbarOpened = !state.isNavbarOpened;
     },
-    toggleCreateProductModal : (state, action) => {
+    toggleCreateProductModal : (state) => {
       state.isCreateProductModalOpened = !state.isCreateProductModalOpened;
     },
-    toggleViewProductModal : (state, action) => {
+    toggleViewProductModal : (state) => {
       state.isViewProductModalOpened = !state.isViewProductModalOpened;
     },
-    toggleUpdateProductModal : (state, action) => {
+    toggleUpdateProductModal : (state) => {
       state.isUpdateProductModalOpened = !state.isUpdateProductModalOpened;
     },
+    
   },
 });
 

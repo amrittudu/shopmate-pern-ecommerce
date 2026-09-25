@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
-import { login} from "../store/slices/authSlice"
+import { login} from "../store/slices/authSlice";
+
 const Login = () => {
+
   const [formData, setFormData] = useState({email: "", password: ""});
   const handleChange = (e) => {
     setFormData( {...formData, [e.target.name]: e.target.value});
-  }
+  };
+
   const dispatch = useDispatch();
   const handleLogin = (e) => {
     e.preventDefault();
     const data = new FormData();
     data.append("email", formData.email);
     data.append("password", formData.password);
-    dispatch( login(data));
+    dispatch( login(data) );
   };
 
   const { user, isAuthenticated, loading } = useSelector( (state) => state.auth);

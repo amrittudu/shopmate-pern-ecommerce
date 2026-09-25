@@ -1,16 +1,17 @@
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken' ;
 import ErrorHandler from '../middlewares/errorMiddleware.js' ;
-import database from '../database/db.js';
-import { catchAsyncErrors } from './catchAsyncError.js';
+import database from '../database/db.js' ;
+import { catchAsyncErrors } from './catchAsyncError.js' ;
 
 export const isAuthenticated = catchAsyncErrors( async (req, res, next ) => {
-    
+
     const { token } = req.cookies;
-    console.log("Token in authMiddleware:", req);
+    
     if( !token ) {
         return next(new ErrorHandler("Please login to access this resource", 401));
     };
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    
     const user = await database.query(
         "SELECT * from users WHERE id = $1 LIMIT 1", [decoded.id]
     );
